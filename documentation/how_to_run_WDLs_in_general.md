@@ -40,3 +40,8 @@ Unlike most languages, WDL does not have a canonical implementation. Here are th
 
 Although Cromwell is what is used on Terra and fully supported, it should be noted Cromwell does not handle system resources properly if it is not running on the cloud. Specifically, Cromwell will occasionally cause the underlying Docker runtime to lock up, requiring a restart. This is very unlikely to happen when running Tree Nine due to its very limited use of concurrent tasks, but if you are seeing strange behavior with Cromwell, try [setting concurrent-job-limit in a Cromwell configuration file as guided here](https://docs.dockstore.org/en/stable/advanced-topics/dockstore-cli/local-cromwell-config.html).
 
+# How To Actually Run It
+* miniwdl: `miniwdl run [workflow_name.wdl] -i [inputs.json] --copy-input-files`
+* Cromwell: `java -jar cromwell.jar run [workflow_name.wdl] -i [inputs.json]`
+* Dockstore CLI: `dockstore workflow launch --entry [entry_name] --json [inputs.json]`
+  * Unlike other WDL runners, you can run a workflow with the Dockstore CLI without making a local copy first, if that workflow is on Dockstore. In this situation, make sure to use workflow's entry name given on Dockstore, ex: github.com/aofarrel/myco/myco_sra:7.0.3
